@@ -2,6 +2,7 @@ package com.getbase.test;
 
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -35,6 +36,8 @@ public class MainTest {
 		leads.createNewLead();
 		leads.checkNewLeadPage();
 		leads.fillAndSubmitNewLead("test", "lead");
+		leads.openTestLead("test lead");
+		Assert.assertEquals("New", leads.checkLeadStatus("test lead"));
 
 		// Close the browser
 		driver.quit();

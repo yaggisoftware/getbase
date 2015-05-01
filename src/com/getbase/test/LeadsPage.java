@@ -39,4 +39,12 @@ public class LeadsPage {
 		driver.findElement(By.id("lead-last-name")).sendKeys(lastName);
 		driver.findElement(By.className("save")).click();
 	}
+
+	public void openTestLead(String leadName) {
+		driver.findElement(By.linkText(leadName)).click();
+	}
+
+	public String checkLeadStatus(String leadName) {
+		return driver.findElement(By.className("lead-status")).getText();
+	}
 }
