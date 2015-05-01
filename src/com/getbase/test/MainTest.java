@@ -1,5 +1,7 @@
 package com.getbase.test;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -10,6 +12,7 @@ public class MainTest {
 	public void firstTest() {
 		// Create a new instance of the Firefox driver
 		WebDriver driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 		// Open Base site
 		driver.get("https://getbase.com/");
@@ -29,6 +32,9 @@ public class MainTest {
 
 		// Check Leads page
 		LeadsPage leads = new LeadsPage(driver);
+		leads.createNewLead();
+		leads.checkNewLeadPage();
+		leads.fillAndSubmitNewLead("test", "lead");
 
 		// Close the browser
 		driver.quit();
