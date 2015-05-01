@@ -1,6 +1,5 @@
 package com.getbase.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,19 +14,21 @@ public class MainTest {
 		// Open Base site
 		driver.get("https://getbase.com/");
 
-		// Check main if main page is opened and have proper title
-		Assert.assertEquals(
-				"Intelligent Sales Productivity Platform | Base CRM",
-				driver.getTitle());
-
 		// Open Login Page
 		StartPage startPage = new StartPage(driver);
 		startPage.openLoginPage();
 
-		// Check Login Page
+		// Check Login Page and enter credentials
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.enterLoginCredentials("michal.jagoda@gmail.com",
 				"getbasetest");
+
+		// Check Dashboard page and switch to Leads
+		DashboardPage dashboard = new DashboardPage(driver);
+		dashboard.switchToLead();
+
+		// Check Leads page
+		LeadsPage leads = new LeadsPage(driver);
 
 		// Close the browser
 		driver.quit();

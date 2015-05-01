@@ -7,6 +7,7 @@ public class LoginPage {
 
 	private WebDriver driver;
 	private static final String PAGE_TITLE = "Login to Base";
+	private static final String LOG_IN_BUTTON_CLASS = "btn";
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
@@ -20,5 +21,6 @@ public class LoginPage {
 	public void enterLoginCredentials(String user, String password) {
 		driver.findElement(By.name("user[email]")).sendKeys(user);
 		driver.findElement(By.name("user[password]")).sendKeys(password);
+		driver.findElement(By.className(LOG_IN_BUTTON_CLASS)).click();
 	}
 }
