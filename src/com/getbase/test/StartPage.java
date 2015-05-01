@@ -7,6 +7,7 @@ public class StartPage {
 
 	private WebDriver driver;
 	private static final String PAGE_TITLE = "Intelligent Sales Productivity Platform | Base CRM";
+	private static final String LOGIN_BUTTON_LINK_TEXT = "LOGIN";
 
 	// Check main if main page is opened and have proper title in constructor
 	public StartPage(WebDriver driver) {
@@ -20,7 +21,7 @@ public class StartPage {
 
 	// Open login page
 	public LoginPage openLoginPage() {
-		driver.findElement(By.linkText("LOGIN")).click();
+		driver.findElement(By.linkText(LOGIN_BUTTON_LINK_TEXT)).click();
 
 		return new LoginPage(driver);
 	}
