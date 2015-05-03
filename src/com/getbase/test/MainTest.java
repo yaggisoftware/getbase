@@ -52,6 +52,18 @@ public class MainTest {
 		leads.openTestLead(TEST_LEAD_FIRST_NAME + " " + TEST_LEAD_LAST_NAME);
 		Assert.assertEquals(TEST_LEAD_NEW_STATUS, leads.checkLeadStatus());
 
+		// Start settings
+		leads.switchToSettings();
+		SettingsPage settings = new SettingsPage(driver);
+
+		// Open settings leads and
+		settings.openLeadsSettings();
+		Assert.assertEquals("https://app.futuresimple.com/settings/leads",
+				driver.getCurrentUrl());
+
+		// Open lead statuses
+		settings.openLeadsStatusSettings();
+
 		// Close the browser
 		driver.quit();
 	}
