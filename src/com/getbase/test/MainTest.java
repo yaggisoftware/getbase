@@ -17,6 +17,7 @@ public class MainTest {
 	private static final String TEST_LEAD_LAST_NAME = String.valueOf(System
 			.currentTimeMillis());
 	private static final String TEST_LEAD_NEW_STATUS = "New";
+	private static final String CHANGED_TEST_LEAD_NEW_STATUS = "TestNew";
 
 	@Test
 	public void firstTest() {
@@ -42,16 +43,15 @@ public class MainTest {
 
 		// Check Leads page
 		LeadsPage leads = new LeadsPage(driver);
-		// leads.createNewLead();
-		// leads.checkNewLeadPage();
+		leads.createNewLead();
+		leads.checkNewLeadPage();
 
 		// Fill and submit lead
-		// leads.fillAndSubmitNewLead(TEST_LEAD_FIRST_NAME,
-		// TEST_LEAD_LAST_NAME);
+		leads.fillAndSubmitNewLead(TEST_LEAD_FIRST_NAME, TEST_LEAD_LAST_NAME);
 
 		// Open lead and check status
-		// leads.openTestLead(TEST_LEAD_FIRST_NAME + " " + TEST_LEAD_LAST_NAME);
-		// Assert.assertEquals(TEST_LEAD_NEW_STATUS, leads.checkLeadStatus());
+		leads.openTestLead(TEST_LEAD_FIRST_NAME + " " + TEST_LEAD_LAST_NAME);
+		Assert.assertEquals(TEST_LEAD_NEW_STATUS, leads.checkLeadStatus());
 
 		// Start settings
 		leads.switchToSettings();
@@ -64,7 +64,13 @@ public class MainTest {
 
 		// Open lead statuses
 		settings.openLeadsStatusSettings();
-		settings.editLeadStatus("TestNew");
+		settings.editLeadStatus(CHANGED_TEST_LEAD_NEW_STATUS);
+
+		// Open lead and check changed status
+		dashboard.switchToLead();
+		leads.openTestLead(TEST_LEAD_FIRST_NAME + " " + TEST_LEAD_LAST_NAME);
+		Assert.assertEquals(CHANGED_TEST_LEAD_NEW_STATUS,
+				leads.checkLeadStatus());
 
 		// Close the browser
 		driver.quit();
