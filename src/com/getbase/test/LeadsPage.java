@@ -46,6 +46,8 @@ public class LeadsPage {
 	}
 
 	public void openTestLead(String leadName) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions
+				.presenceOfElementLocated(By.linkText(leadName)));
 		driver.findElement(By.linkText(leadName)).click();
 	}
 
