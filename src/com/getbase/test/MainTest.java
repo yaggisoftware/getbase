@@ -11,6 +11,7 @@ public class MainTest {
 
 	private static final long IMPLICIT_TIMEOUT = 10;
 	private static final String BASE_URL = "https://getbase.com/";
+	private static final String LEADS_URL = "https://app.futuresimple.com/settings/leads";
 	private static final String TEST_LOGIN = "michal.jagoda@gmail.com";
 	private static final String TEST_PASSWORD = "getbasetest";
 	private static final String TEST_LEAD_FIRST_NAME = "Test";
@@ -19,6 +20,12 @@ public class MainTest {
 	private static final String TEST_LEAD_NEW_STATUS = "New";
 	private static final String CHANGED_TEST_LEAD_NEW_STATUS = "TestNew";
 
+	/**
+	 * 1. Log into the Web version of Base. 2. Create a new Lead. 3. Check that
+	 * its Lead status is "New" 4. Go into Settings / Leads / Lead statuses and
+	 * change the name of the "New" status to a different name. 5. Go back to
+	 * the Lead to check if the name change is reflected.
+	 */
 	@Test
 	public void firstTest() {
 		// Create a new instance of the Firefox driver
@@ -38,10 +45,10 @@ public class MainTest {
 		loginPage.enterLoginCredentials(TEST_LOGIN, TEST_PASSWORD);
 
 		// Check Dashboard page and switch to Leads
-		DashboardPage dashboard = new DashboardPage(driver);
+		DashboardToolbarPage dashboard = new DashboardToolbarPage(driver);
 		dashboard.switchToLead();
 
-		// Check Leads page
+		// Check Leads page and create new lead
 		LeadsPage leads = new LeadsPage(driver);
 		leads.createNewLead();
 		leads.checkNewLeadPage();
@@ -54,13 +61,12 @@ public class MainTest {
 		Assert.assertEquals(TEST_LEAD_NEW_STATUS, leads.checkLeadStatus());
 
 		// Start settings
-		leads.switchToSettings();
+		dashboard.switchToSettings();
 		SettingsPage settings = new SettingsPage(driver);
 
 		// Open settings leads and
 		settings.openLeadsSettings();
-		Assert.assertEquals("https://app.futuresimple.com/settings/leads",
-				driver.getCurrentUrl());
+		Assert.assertEquals(LEADS_URL, driver.getCurrentUrl());
 
 		// Open lead statuses
 		settings.openLeadsStatusSettings();

@@ -15,8 +15,6 @@ public class LeadsPage {
 	private static final String SUBMIT_NEW_LEAD_LAST_NAME = "lead-last-name";
 	private static final String SUBMIT_NEW_LEAD_SAVE_BUTTON_TEXT = "save";
 	private static final String LEAD_STATUS_CLASS_NAME = "lead-status";
-	private static final String SETTINGS_PAGE_BUTTON_CLASS = "icon-cogs";
-	private static final String SETTINGS_PAGE_BUTTON_LINK_TEXT = "Settings";
 
 	public LeadsPage(WebDriver driver) {
 		this.driver = driver;
@@ -56,8 +54,4 @@ public class LeadsPage {
 				.getText();
 	}
 
-	public void switchToSettings() {
-		driver.findElement(By.className(SETTINGS_PAGE_BUTTON_CLASS)).click();
-		driver.findElement(By.linkText(SETTINGS_PAGE_BUTTON_LINK_TEXT)).click();
-	}
 }
