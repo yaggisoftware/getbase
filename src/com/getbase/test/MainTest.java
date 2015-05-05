@@ -2,15 +2,20 @@ package com.getbase.test;
 
 import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class MainTest {
 
+	private WebDriver driver;
+
 	private static final long IMPLICIT_TIMEOUT = 10;
 	private static final String BASE_URL = "https://getbase.com/";
+	private static final String DASHBOARD_TOOLBAR_URL = "https://app.futuresimple.com/sales";
 	private static final String LEADS_URL = "https://app.futuresimple.com/settings/leads";
 	private static final String TEST_LOGIN = "michal.jagoda@gmail.com";
 	private static final String TEST_PASSWORD = "getbasetest";
@@ -21,6 +26,21 @@ public class MainTest {
 	private static final String CHANGED_TEST_LEAD_NEW_STATUS = "TestNew";
 
 	/**
+	 * Do initialization before any test case is started. Create new instance of
+	 * the Firefox, open browser, open main URL
+	 */
+	@Before
+	public void Initialize() {
+		// Create a new instance of the Firefox driver
+		driver = new FirefoxDriver();
+		driver.manage().timeouts()
+				.implicitlyWait(IMPLICIT_TIMEOUT, TimeUnit.SECONDS);
+
+		// Open Base site
+		driver.get(BASE_URL);
+	}
+
+	/**
 	 * 1. Log into the Web version of Base. 2. Create a new Lead. 3. Check that
 	 * its Lead status is "New" 4. Go into Settings / Leads / Lead statuses and
 	 * change the name of the "New" status to a different name. 5. Go back to
@@ -28,14 +48,6 @@ public class MainTest {
 	 */
 	@Test
 	public void firstTest() {
-		// Create a new instance of the Firefox driver
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().timeouts()
-				.implicitlyWait(IMPLICIT_TIMEOUT, TimeUnit.SECONDS);
-
-		// Open Base site
-		driver.get(BASE_URL);
-
 		// Open Login Page
 		StartPage startPage = new StartPage(driver);
 		startPage.openLoginPage();
@@ -63,7 +75,7 @@ public class MainTest {
 		dashboard.switchToSettings();
 		SettingsPage settings = new SettingsPage(driver);
 
-		// Open settings leads and
+		// Open settings leads
 		settings.openLeadsSettings();
 		Assert.assertEquals(LEADS_URL, driver.getCurrentUrl());
 
@@ -76,6 +88,25 @@ public class MainTest {
 		leads.openTestLead(TEST_LEAD_FIRST_NAME + " " + TEST_LEAD_LAST_NAME);
 		Assert.assertEquals(CHANGED_TEST_LEAD_NEW_STATUS,
 				leads.checkLeadStatus());
+	}
+
+	@After
+	public void Teardown() {
+		// Start cleanup from main page
+		driver.get(DASHBOARD_TOOLBAR_URL);
+
+		// Open settings
+		DashboardToolbarPage dashboard = new DashboardToolbarPage(driver);
+		dashboard.switchToSettings();
+
+		// Check settings page and open leads settings
+		SettingsPage settings = new SettingsPage(driver);
+		settings.openLeadsSettings();
+		Assert.assertEquals(LEADS_URL, driver.getCurrentUrl());
+
+		// Open lead statuses and bring back Lead status to "New"
+		settings.openLeadsStatusSettings();
+		settings.editLeadStatusNew(TEST_LEAD_NEW_STATUS);
 
 		// Close the browser
 		driver.quit();
