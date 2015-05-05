@@ -51,7 +51,6 @@ public class MainTest {
 		// Check Leads page and create new lead
 		LeadsPage leads = new LeadsPage(driver);
 		leads.createNewLead();
-		leads.checkNewLeadPage();
 
 		// Fill and submit lead
 		leads.fillAndSubmitNewLead(TEST_LEAD_FIRST_NAME, TEST_LEAD_LAST_NAME);

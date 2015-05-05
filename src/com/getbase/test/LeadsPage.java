@@ -25,16 +25,22 @@ public class LeadsPage {
 		}
 	}
 
+	/**
+	 * Open page to create new Lead
+	 */
 	public void createNewLead() {
 		new WebDriverWait(driver, 10).until(ExpectedConditions
 				.presenceOfElementLocated(By.linkText(NEW_LEAD_BUTTON_TEXT)));
 		driver.findElement(By.linkText(NEW_LEAD_BUTTON_TEXT)).click();
-	}
-
-	public void checkNewLeadPage() {
 		driver.getCurrentUrl().equals(NEW_LEAD_PAGE_URL);
 	}
 
+	/**
+	 * Fill first name and last name for lead and submit
+	 *
+	 * @param firstName
+	 * @param lastName
+	 */
 	public void fillAndSubmitNewLead(String firstName, String lastName) {
 		driver.findElement(By.id(SUBMIT_NEW_LEAD_FIRST_NAME)).sendKeys(
 				firstName);
@@ -43,12 +49,22 @@ public class LeadsPage {
 				.click();
 	}
 
+	/**
+	 * Open test lead with requested name
+	 *
+	 * @param leadName
+	 */
 	public void openTestLead(String leadName) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions
 				.presenceOfElementLocated(By.linkText(leadName)));
 		driver.findElement(By.linkText(leadName)).click();
 	}
 
+	/**
+	 * Check lead status and return it as String
+	 *
+	 * @return
+	 */
 	public String checkLeadStatus() {
 		return driver.findElement(By.className(LEAD_STATUS_CLASS_NAME))
 				.getText();
