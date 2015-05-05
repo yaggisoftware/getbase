@@ -69,7 +69,7 @@ public class MainTest {
 
 		// Open lead statuses
 		settings.openLeadsStatusSettings();
-		settings.editLeadStatus(CHANGED_TEST_LEAD_NEW_STATUS);
+		settings.editLeadStatusNew(CHANGED_TEST_LEAD_NEW_STATUS);
 
 		// Open lead and check changed status
 		dashboard.switchToLead();

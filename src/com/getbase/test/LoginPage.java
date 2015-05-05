@@ -20,6 +20,12 @@ public class LoginPage {
 		}
 	}
 
+	/**
+	 * Fill login form by entering user and password and then submitting form
+	 *
+	 * @param user
+	 * @param password
+	 */
 	public void enterLoginCredentials(String user, String password) {
 		driver.findElement(By.name(LOG_IN_EMAIL_NAME)).sendKeys(user);
 		driver.findElement(By.name(LOG_IN_PASSWORD_NAME)).sendKeys(password);

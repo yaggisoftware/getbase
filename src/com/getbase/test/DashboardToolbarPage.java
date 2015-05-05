@@ -20,10 +20,16 @@ public class DashboardToolbarPage {
 		}
 	}
 
+	/**
+	 * Click Leads on a toolbar
+	 */
 	public void switchToLead() {
 		driver.findElement(By.id(LEADS_PAGE_BUTTON_ID)).click();
 	}
 
+	/**
+	 * Open settings page
+	 */
 	public void switchToSettings() {
 		driver.findElement(By.className(SETTINGS_PAGE_BUTTON_CLASS)).click();
 		driver.findElement(By.linkText(SETTINGS_PAGE_BUTTON_LINK_TEXT)).click();
