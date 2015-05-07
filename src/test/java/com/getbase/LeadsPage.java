@@ -1,4 +1,4 @@
-package com.getbase.test;
+package test.java.com.getbase;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -1,4 +1,4 @@
-package com.getbase.test;
+package test.java.com.getbase;
 
 import java.util.concurrent.TimeUnit;
 
