@@ -8,7 +8,7 @@ public class DashboardToolbarPage {
 	private WebDriver driver;
 	private static final String PAGE_URL = "https://app.futuresimple.com/sales";
 	private static final String LEADS_PAGE_BUTTON_ID = "nav-leads";
-	private static final String SETTINGS_PAGE_BUTTON_CLASS = "icon-cogs";
+	private static final String PROFILE_PAGE_BUTTON_CLASS = "user-avatar";
 	private static final String SETTINGS_PAGE_BUTTON_LINK_TEXT = "Settings";
 
 	public DashboardToolbarPage(WebDriver driver) {
@@ -31,7 +31,7 @@ public class DashboardToolbarPage {
 	 * Open settings page
 	 */
 	public void switchToSettings() {
-		driver.findElement(By.className(SETTINGS_PAGE_BUTTON_CLASS)).click();
+		driver.findElement(By.className(PROFILE_PAGE_BUTTON_CLASS)).click();
 		driver.findElement(By.linkText(SETTINGS_PAGE_BUTTON_LINK_TEXT)).click();
 	}
 
