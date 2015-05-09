@@ -17,7 +17,7 @@ public class MainTest {
 	private static final String BASE_URL = "https://getbase.com/";
 	private static final String DASHBOARD_TOOLBAR_URL = "https://app.futuresimple.com/sales";
 	private static final String LEADS_URL = "https://app.futuresimple.com/settings/leads";
-	private static final String TEST_LOGIN = "michal.jagoda@gmail.com";
+	private static final String TEST_LOGIN = "yaggi@poczta.fm";
 	private static final String TEST_PASSWORD = "getbasetest";
 	private static final String TEST_LEAD_FIRST_NAME = "Test";
 	private static final String TEST_LEAD_LAST_NAME = String.valueOf(System

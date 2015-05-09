@@ -29,8 +29,8 @@ public class LeadsPage {
 	 * Open page to create new Lead
 	 */
 	public void createNewLead() {
-		new WebDriverWait(driver, 10).until(ExpectedConditions
-				.presenceOfElementLocated(By.linkText(NEW_LEAD_BUTTON_TEXT)));
+		new WebDriverWait(driver, 30).until(ExpectedConditions
+				.elementToBeClickable(By.linkText(NEW_LEAD_BUTTON_TEXT)));
 		driver.findElement(By.linkText(NEW_LEAD_BUTTON_TEXT)).click();
 		driver.getCurrentUrl().equals(NEW_LEAD_PAGE_URL);
 	}
