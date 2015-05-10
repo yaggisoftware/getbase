@@ -23,8 +23,10 @@ public class StartPage {
 	 *
 	 * @return
 	 */
-	public void openLoginPage() {
+	public LoginPage openLoginPage() {
 		driver.findElement(By.linkText(LOGIN_BUTTON_LINK_TEXT)).click();
+
+		return new LoginPage(driver);
 	}
 
 }

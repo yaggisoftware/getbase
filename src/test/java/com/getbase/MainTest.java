@@ -16,7 +16,6 @@ public class MainTest {
 	private static final long IMPLICIT_TIMEOUT = 10;
 	private static final String BASE_URL = "https://getbase.com/";
 	private static final String DASHBOARD_TOOLBAR_URL = "https://app.futuresimple.com/sales";
-	private static final String LEADS_URL = "https://app.futuresimple.com/settings/leads";
 	private static final String TEST_LOGIN = "yaggi@poczta.fm";
 	private static final String TEST_PASSWORD = "getbasetest";
 	private static final String TEST_LEAD_FIRST_NAME = "Test";
@@ -50,34 +49,30 @@ public class MainTest {
 	public void firstTest() {
 		// Open Login Page
 		StartPage startPage = new StartPage(driver);
-		startPage.openLoginPage();
+		LoginPage loginPage = startPage.openLoginPage();
 
 		// Check Login Page and enter credentials
-		LoginPage loginPage = new LoginPage(driver);
-		loginPage.enterLoginCredentials(TEST_LOGIN, TEST_PASSWORD);
+		DashboardToolbarPage dashboard = loginPage.enterLoginCredentials(TEST_LOGIN, TEST_PASSWORD);
 
 		// Check Dashboard page and switch to Leads
-		DashboardToolbarPage dashboard = new DashboardToolbarPage(driver);
-		dashboard.switchToLead();
+		LeadsPage leads = dashboard.switchToLead();
 
 		// Check Leads page and create new lead
-		LeadsPage leads = new LeadsPage(driver);
-		leads.createNewLead();
+		LeadsNewPage newlead = leads.createNewLead();
 
 		// Fill and submit lead
-		leads.fillAndSubmitNewLead(TEST_LEAD_FIRST_NAME, TEST_LEAD_LAST_NAME);
+		newlead.fillAndSubmitNewLead(TEST_LEAD_FIRST_NAME, TEST_LEAD_LAST_NAME);
 
 		// Open lead and check status
 		leads.openTestLead(TEST_LEAD_FIRST_NAME + " " + TEST_LEAD_LAST_NAME);
 		Assert.assertEquals(TEST_LEAD_NEW_STATUS, leads.checkLeadStatus());
 
-		// Start settings
-		dashboard.switchToSettings();
-		SettingsPage settings = new SettingsPage(driver);
+		// Open settings
+		SettingsPage settings = dashboard.switchToSettings();
 
 		// Open settings leads
 		settings.openLeadsSettings();
-		Assert.assertEquals(LEADS_URL, driver.getCurrentUrl());
+		Assert.assertEquals(settings.getLeadsSettingsURL(), driver.getCurrentUrl());
 
 		// Open lead statuses
 		settings.openLeadsStatusSettings();
@@ -85,6 +80,7 @@ public class MainTest {
 
 		// Open lead and check changed status
 		dashboard.switchToLead();
+		Assert.assertEquals(leads.getLeadsURL(), driver.getCurrentUrl());
 		leads.openTestLead(TEST_LEAD_FIRST_NAME + " " + TEST_LEAD_LAST_NAME);
 		Assert.assertEquals(CHANGED_TEST_LEAD_NEW_STATUS,
 				leads.checkLeadStatus());
@@ -97,12 +93,11 @@ public class MainTest {
 
 		// Open settings
 		DashboardToolbarPage dashboard = new DashboardToolbarPage(driver);
-		dashboard.switchToSettings();
+		SettingsPage settings = dashboard.switchToSettings();
 
 		// Check settings page and open leads settings
-		SettingsPage settings = new SettingsPage(driver);
 		settings.openLeadsSettings();
-		Assert.assertEquals(LEADS_URL, driver.getCurrentUrl());
+		Assert.assertEquals(settings.getLeadsSettingsURL(), driver.getCurrentUrl());
 
 		// Open lead statuses and bring back Lead status to "New"
 		settings.openLeadsStatusSettings();

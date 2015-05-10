@@ -26,9 +26,11 @@ public class LoginPage {
 	 * @param user
 	 * @param password
 	 */
-	public void enterLoginCredentials(String user, String password) {
+	public DashboardToolbarPage enterLoginCredentials(String user, String password) {
 		driver.findElement(By.name(LOG_IN_EMAIL_NAME)).sendKeys(user);
 		driver.findElement(By.name(LOG_IN_PASSWORD_NAME)).sendKeys(password);
 		driver.findElement(By.className(LOG_IN_BUTTON_CLASS)).click();
+
+		return new DashboardToolbarPage(driver);
 	}
 }

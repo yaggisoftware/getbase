@@ -9,6 +9,7 @@ public class SettingsPage {
 
 	private WebDriver driver;
 	private static final String PAGE_URL = "https://app.futuresimple.com/settings/profile";
+	private static final String LEADS_URL = "https://app.futuresimple.com/settings/leads";
 	private static final String LEADS_SETTINGS_LINK_TEXT = "Leads";
 	private static final String LEAD_STATUSES_SETTINGS_LINK_TEXT = "Lead Statuses";
 	private static final String STATUS_NEW_EDIT_BUTTON_XPATH = ".//*[@id='lead-status']/div[1]/span[1]/div/div/label/h4/../../div/div/button";
@@ -22,6 +23,13 @@ public class SettingsPage {
 					"This is not dashboard page, current page is: "
 							+ driver.getCurrentUrl());
 		}
+	}
+
+	/**
+	 * @return Leads settings URL
+	 */
+	public String getLeadsSettingsURL(){
+		return LEADS_URL;
 	}
 
 	/**

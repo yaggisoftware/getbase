@@ -23,16 +23,20 @@ public class DashboardToolbarPage {
 	/**
 	 * Click Leads on a toolbar
 	 */
-	public void switchToLead() {
+	public LeadsPage switchToLead() {
 		driver.findElement(By.id(LEADS_PAGE_BUTTON_ID)).click();
+
+		return new LeadsPage(driver);
 	}
 
 	/**
 	 * Open settings page
 	 */
-	public void switchToSettings() {
+	public SettingsPage switchToSettings() {
 		driver.findElement(By.className(PROFILE_PAGE_BUTTON_CLASS)).click();
 		driver.findElement(By.linkText(SETTINGS_PAGE_BUTTON_LINK_TEXT)).click();
+
+		return new SettingsPage(driver);
 	}
 
 }
