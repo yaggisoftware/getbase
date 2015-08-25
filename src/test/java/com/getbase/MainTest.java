@@ -16,7 +16,6 @@ public class MainTest {
 
 	private static final long IMPLICIT_TIMEOUT = 10;
 	private static final String BASE_URL = "https://getbase.com/";
-	//private static final String DASHBOARD_TOOLBAR_URL = "https://app.futuresimple.com/sales";
 	private static final String LEADS_SETTINGS_URL = "https://app.futuresimple.com/settings/leads/lead-status";
 	private static final String TEST_LOGIN = "yaggisoftware@gmail.com";
 	private static final String TEST_PASSWORD = "getbasetest";

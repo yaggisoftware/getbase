@@ -24,8 +24,7 @@ public class DashboardToolbarPage {
 					"This is not dashboard page, current page is: "
 							+ driver.getCurrentUrl());
 		}
-	}	
-	
+	}
 
 	/**
 	 * Click Leads on a toolbar
