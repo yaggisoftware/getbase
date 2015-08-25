@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
 
 public class MainTest {
 
@@ -16,13 +17,14 @@ public class MainTest {
 	private static final long IMPLICIT_TIMEOUT = 10;
 	private static final String BASE_URL = "https://getbase.com/";
 	private static final String DASHBOARD_TOOLBAR_URL = "https://app.futuresimple.com/sales";
-	private static final String TEST_LOGIN = "yaggi@poczta.fm";
+	private static final String TEST_LOGIN = "yaggisoftware@gmail.com";
 	private static final String TEST_PASSWORD = "getbasetest";
 	private static final String TEST_LEAD_FIRST_NAME = "Test";
 	private static final String TEST_LEAD_LAST_NAME = String.valueOf(System
 			.currentTimeMillis());
 	private static final String TEST_LEAD_NEW_STATUS = "New";
 	private static final String CHANGED_TEST_LEAD_NEW_STATUS = "TestNew";
+	
 
 	/**
 	 * Do initialization before any test case is started. Create new instance of
@@ -34,7 +36,7 @@ public class MainTest {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts()
 				.implicitlyWait(IMPLICIT_TIMEOUT, TimeUnit.SECONDS);
-
+		
 		// Open Base site
 		driver.get(BASE_URL);
 	}
@@ -48,19 +50,23 @@ public class MainTest {
 	@Test
 	public void firstTest() {
 		// Open Login Page
-		StartPage startPage = new StartPage(driver);
-		LoginPage loginPage = startPage.openLoginPage();
+		StartPage startPage = PageFactory.initElements(driver, StartPage.class);
+		startPage.openLoginPage();
 
 		// Check Login Page and enter credentials
-		DashboardToolbarPage dashboard = loginPage.enterLoginCredentials(TEST_LOGIN, TEST_PASSWORD);
-
+		LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+		loginPage.enterLoginCredentials(TEST_LOGIN, TEST_PASSWORD);
+		
 		// Check Dashboard page and switch to Leads
-		LeadsPage leads = dashboard.switchToLead();
+		DashboardToolbarPage dashboard = PageFactory.initElements(driver, DashboardToolbarPage.class);
+		dashboard.switchToLead();
 
 		// Check Leads page and create new lead
-		LeadsNewPage newlead = leads.createNewLead();
+		LeadsPage leads = PageFactory.initElements(driver, LeadsPage.class);
+		leads.createNewLead();
 
 		// Fill and submit lead
+		LeadsNewPage newlead = PageFactory.initElements(driver, LeadsNewPage.class);
 		newlead.fillAndSubmitNewLead(TEST_LEAD_FIRST_NAME, TEST_LEAD_LAST_NAME);
 
 		// Open lead and check status
@@ -68,9 +74,10 @@ public class MainTest {
 		Assert.assertEquals(TEST_LEAD_NEW_STATUS, leads.checkLeadStatus());
 
 		// Open settings
-		SettingsPage settings = dashboard.switchToSettings();
+		dashboard.switchToSettings();
 
 		// Open settings leads
+		SettingsPage settings = PageFactory.initElements(driver, SettingsPage.class);
 		settings.openLeadsSettings();
 		Assert.assertEquals(settings.getLeadsSettingsURL(), driver.getCurrentUrl());
 
@@ -92,10 +99,11 @@ public class MainTest {
 		driver.get(DASHBOARD_TOOLBAR_URL);
 
 		// Open settings
-		DashboardToolbarPage dashboard = new DashboardToolbarPage(driver);
-		SettingsPage settings = dashboard.switchToSettings();
+		DashboardToolbarPage dashboard = PageFactory.initElements(driver, DashboardToolbarPage.class);
+		dashboard.switchToSettings();
 
 		// Check settings page and open leads settings
+		SettingsPage settings = PageFactory.initElements(driver, SettingsPage.class);
 		settings.openLeadsSettings();
 		Assert.assertEquals(settings.getLeadsSettingsURL(), driver.getCurrentUrl());
 

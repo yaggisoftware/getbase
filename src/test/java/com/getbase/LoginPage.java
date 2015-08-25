@@ -1,15 +1,20 @@
 package test.java.com.getbase;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class LoginPage {
 
 	private WebDriver driver;
 	private static final String PAGE_TITLE = "Login to Base";
-	private static final String LOG_IN_EMAIL_NAME = "user[email]";
-	private static final String LOG_IN_PASSWORD_NAME = "user[password]";
-	private static final String LOG_IN_BUTTON_CLASS = "btn";
+	
+	@FindBy(name = "user[email]")
+	private WebElement loginFieldEmail;
+	@FindBy(name = "user[password]")
+	private WebElement loginFieldPassword;
+	@FindBy(className = "btn")
+	private WebElement loginButton;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
@@ -27,9 +32,9 @@ public class LoginPage {
 	 * @param password
 	 */
 	public DashboardToolbarPage enterLoginCredentials(String user, String password) {
-		driver.findElement(By.name(LOG_IN_EMAIL_NAME)).sendKeys(user);
-		driver.findElement(By.name(LOG_IN_PASSWORD_NAME)).sendKeys(password);
-		driver.findElement(By.className(LOG_IN_BUTTON_CLASS)).click();
+		loginFieldEmail.sendKeys(user);
+		loginFieldPassword.sendKeys(password);
+		loginButton.click();
 
 		return new DashboardToolbarPage(driver);
 	}

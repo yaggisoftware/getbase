@@ -1,16 +1,22 @@
 package test.java.com.getbase;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class DashboardToolbarPage {
+	
 
 	private WebDriver driver;
 	private static final String PAGE_URL = "https://app.futuresimple.com/sales";
-	private static final String LEADS_PAGE_BUTTON_ID = "nav-leads";
-	private static final String PROFILE_PAGE_BUTTON_CLASS = "user-avatar";
-	private static final String SETTINGS_PAGE_BUTTON_LINK_TEXT = "Settings";
-
+	
+	@FindBy(id = "nav-leads")
+	private WebElement leadsSwitch;
+	@FindBy(className = "user-avatar")
+	private WebElement profileSwitch;
+	@FindBy(linkText = "Settings")
+	private WebElement settingsSwitch;
+	
 	public DashboardToolbarPage(WebDriver driver) {
 		this.driver = driver;
 		if (!driver.getCurrentUrl().equals(PAGE_URL)) {
@@ -18,13 +24,14 @@ public class DashboardToolbarPage {
 					"This is not dashboard page, current page is: "
 							+ driver.getCurrentUrl());
 		}
-	}
+	}	
+	
 
 	/**
 	 * Click Leads on a toolbar
 	 */
 	public LeadsPage switchToLead() {
-		driver.findElement(By.id(LEADS_PAGE_BUTTON_ID)).click();
+		leadsSwitch.click();
 
 		return new LeadsPage(driver);
 	}
@@ -33,8 +40,8 @@ public class DashboardToolbarPage {
 	 * Open settings page
 	 */
 	public SettingsPage switchToSettings() {
-		driver.findElement(By.className(PROFILE_PAGE_BUTTON_CLASS)).click();
-		driver.findElement(By.linkText(SETTINGS_PAGE_BUTTON_LINK_TEXT)).click();
+		profileSwitch.click();
+		settingsSwitch.click();
 
 		return new SettingsPage(driver);
 	}

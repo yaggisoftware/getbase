@@ -1,14 +1,17 @@
 package test.java.com.getbase;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class StartPage {
 
 	private WebDriver driver;
-	private static final String PAGE_TITLE = "Intelligent Sales Productivity Platform | Base CRM";
-	private static final String LOGIN_BUTTON_LINK_TEXT = "LOGIN";
-
+	private static final String PAGE_TITLE = "All-in-one Sales Platform | Base CRM Base";
+	
+	@FindBy(linkText = "Log In")
+	private WebElement loginButton;
+	
 	public StartPage(WebDriver driver) {
 		this.driver = driver;
 		if (!driver.getTitle().equals(PAGE_TITLE)) {
@@ -24,7 +27,7 @@ public class StartPage {
 	 * @return
 	 */
 	public LoginPage openLoginPage() {
-		driver.findElement(By.linkText(LOGIN_BUTTON_LINK_TEXT)).click();
+		loginButton.click();
 
 		return new LoginPage(driver);
 	}

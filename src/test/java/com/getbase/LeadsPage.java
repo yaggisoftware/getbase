@@ -2,6 +2,8 @@ package test.java.com.getbase;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -9,8 +11,10 @@ public class LeadsPage {
 
 	private WebDriver driver;
 	private static final String LEAD_PAGE_URL = "https://app.futuresimple.com/leads";
-	private static final String NEW_LEAD_BUTTON_TEXT = "Lead";
-	private static final String LEAD_STATUS_CLASS_NAME = "lead-status";
+	@FindBy(linkText = "Lead")
+	private WebElement newLeadButton;
+	@FindBy(className = "lead-status")
+	private WebElement leadStatus;
 
 	public LeadsPage(WebDriver driver) {
 		this.driver = driver;
@@ -30,8 +34,8 @@ public class LeadsPage {
 	 */
 	public LeadsNewPage createNewLead() {
 		new WebDriverWait(driver, 30).until(ExpectedConditions
-				.elementToBeClickable(By.linkText(NEW_LEAD_BUTTON_TEXT)));
-		driver.findElement(By.linkText(NEW_LEAD_BUTTON_TEXT)).click();
+				.elementToBeClickable(newLeadButton));
+		newLeadButton.click();
 
 		return new LeadsNewPage(driver);
 	}
@@ -53,8 +57,7 @@ public class LeadsPage {
 	 * @return
 	 */
 	public String checkLeadStatus() {
-		return driver.findElement(By.className(LEAD_STATUS_CLASS_NAME))
-				.getText();
+		return leadStatus.getText();
 	}
 
 }

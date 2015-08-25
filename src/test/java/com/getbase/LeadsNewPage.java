@@ -1,18 +1,21 @@
 package test.java.com.getbase;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class LeadsNewPage {
 
-	private WebDriver driver;
 	private static final String NEW_LEAD_PAGE_URL = "https://app.futuresimple.com/leads/new";
-	private static final String SUBMIT_NEW_LEAD_FIRST_NAME = "lead-first-name";
-	private static final String SUBMIT_NEW_LEAD_LAST_NAME = "lead-last-name";
-	private static final String SUBMIT_NEW_LEAD_SAVE_BUTTON_TEXT = "save";
+	
+	@FindBy(id = "lead-first-name")
+	private WebElement leadFirstName;
+	@FindBy(id = "lead-last-name")
+	private WebElement leadLastName;
+	@FindBy(className = "save")
+	private WebElement leadSaveButton;
 
 	public LeadsNewPage(WebDriver driver) {
-		this.driver = driver;
 		if (!driver.getCurrentUrl().equals(NEW_LEAD_PAGE_URL)) {
 			throw new IllegalStateException(
 					"This is not Leads page, current page is: "
@@ -27,10 +30,8 @@ public class LeadsNewPage {
 	 * @param lastName
 	 */
 	public void fillAndSubmitNewLead(String firstName, String lastName) {
-		driver.findElement(By.id(SUBMIT_NEW_LEAD_FIRST_NAME)).sendKeys(
-				firstName);
-		driver.findElement(By.id(SUBMIT_NEW_LEAD_LAST_NAME)).sendKeys(lastName);
-		driver.findElement(By.className(SUBMIT_NEW_LEAD_SAVE_BUTTON_TEXT))
-				.click();
+		leadFirstName.sendKeys(firstName);
+		leadLastName.sendKeys(lastName);
+		leadSaveButton.click();
 	}
 }
