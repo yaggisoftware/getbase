@@ -16,7 +16,8 @@ public class MainTest {
 
 	private static final long IMPLICIT_TIMEOUT = 10;
 	private static final String BASE_URL = "https://getbase.com/";
-	private static final String DASHBOARD_TOOLBAR_URL = "https://app.futuresimple.com/sales";
+	//private static final String DASHBOARD_TOOLBAR_URL = "https://app.futuresimple.com/sales";
+	private static final String LEADS_SETTINGS_URL = "https://app.futuresimple.com/settings/leads/lead-status";
 	private static final String TEST_LOGIN = "yaggisoftware@gmail.com";
 	private static final String TEST_PASSWORD = "getbasetest";
 	private static final String TEST_LEAD_FIRST_NAME = "Test";
@@ -95,20 +96,9 @@ public class MainTest {
 
 	@After
 	public void Teardown() {
-		// Start cleanup from main page
-		driver.get(DASHBOARD_TOOLBAR_URL);
-
-		// Open settings
-		DashboardToolbarPage dashboard = PageFactory.initElements(driver, DashboardToolbarPage.class);
-		dashboard.switchToSettings();
-
-		// Check settings page and open leads settings
-		SettingsPage settings = PageFactory.initElements(driver, SettingsPage.class);
-		settings.openLeadsSettings();
-		Assert.assertEquals(settings.getLeadsSettingsURL(), driver.getCurrentUrl());
-
-		// Open lead statuses and bring back Lead status to "New"
-		settings.openLeadsStatusSettings();
+		// Start cleanup from main page, open lead statuses and bring back Lead status to "New"
+		driver.get(LEADS_SETTINGS_URL);
+		SettingsPage settings = PageFactory.initElements(driver, SettingsPage.class);		
 		settings.editLeadStatusNew(TEST_LEAD_NEW_STATUS);
 
 		// Close the browser

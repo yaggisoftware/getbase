@@ -10,9 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SettingsPage {
 
 	private WebDriver driver;
-	private static final String PAGE_URL = "https://app.futuresimple.com/settings/profile";
 	private static final String LEADS_URL = "https://app.futuresimple.com/settings/leads";
-
+	
 	@FindBy(linkText = "Leads")
 	private WebElement leadsSettings; 
 	@FindBy(linkText = "Lead Statuses")
@@ -26,11 +25,6 @@ public class SettingsPage {
 	
 	public SettingsPage(WebDriver driver) {
 		this.driver = driver;
-		if (!driver.getCurrentUrl().equals(PAGE_URL)) {
-			throw new IllegalStateException(
-					"This is not dashboard page, current page is: "
-							+ driver.getCurrentUrl());
-		}
 	}
 
 	/**
