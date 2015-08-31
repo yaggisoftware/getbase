@@ -12,7 +12,7 @@ public class DashboardToolbarPage {
 	
 	@FindBy(id = "nav-leads")
 	private WebElement leadsSwitch;
-	@FindBy(className = "avatar-container")
+	@FindBy(className = "user-avatar")
 	private WebElement profileSwitch;
 	@FindBy(linkText = "Settings")
 	private WebElement settingsSwitch;
