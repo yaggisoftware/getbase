@@ -7,7 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class MainTest {
@@ -33,7 +34,9 @@ public class MainTest {
 	@Before
 	public void Initialize() {
 		// Create a new instance of the Firefox driver
-		driver = new FirefoxDriver();
+		DesiredCapabilities capability = DesiredCapabilities.firefox();
+        driver = new RemoteWebDriver(new URL("http://52.19.135.183:4444/wd/hub"), capability);
+		//driver = new FirefoxDriver();
 		driver.manage().timeouts()
 				.implicitlyWait(IMPLICIT_TIMEOUT, TimeUnit.SECONDS);
 		
