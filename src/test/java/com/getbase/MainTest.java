@@ -32,9 +32,10 @@ public class MainTest {
 	/**
 	 * Do initialization before any test case is started. Create new instance of
 	 * the Firefox, open browser, open main URL
+	 * @throws MalformedURLException 
 	 */
 	@Before
-	public void Initialize() {
+	public void Initialize() throws MalformedURLException {
 		// Create a new instance of the Firefox driver
 		DesiredCapabilities capability = DesiredCapabilities.firefox();
         driver = new RemoteWebDriver(new URL("http://52.19.135.183:4444/wd/hub"), capability);
